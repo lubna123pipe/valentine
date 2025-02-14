@@ -1,0 +1,168 @@
+[]<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Be My Valentine?</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #ffebee;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      max-width: 400px;
+    }
+    h1 {
+      font-size: 1.8rem;
+      color: #d32f2f;
+      margin-bottom: 20px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    #yesButton {
+      background-color: #d32f2f;
+      color: white;
+    }
+    #noButton {
+      background-color: #f48fb1;
+      color: white;
+      position: absolute;
+    }
+    #message {
+      font-size: 1.5rem;
+      color: #d32f2f;
+      margin-top: 20px;
+      display: none;
+    }
+    .balloon {
+      position: absolute;
+      width: 60px;
+      height: 80px;
+      background-color: #ff4081;
+      border-radius: 50%;
+      animation: float 6s infinite ease-in-out;
+      z-index: 1;
+    }
+    .balloon::before {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 2px;
+      height: 30px;
+      background-color: #ff4081;
+    }
+    .rose {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-image: url('https://www.transparentpng.com/thumb/rose/red-rose-png-0.png');
+      background-size: cover;
+      animation: float 8s infinite ease-in-out;
+      z-index: 1;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #ff4081;
+      border-radius: 50%;
+      animation: confetti-fall 2s linear infinite;
+      z-index: 3;
+    }
+    @keyframes confetti-fall {
+      0% { transform: translateY(-10vh) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Will you be my Valentine?</h1>
+    <div class="buttons">
+      <button id="yesButton">Yes</button>
+    </div>
+    <p id="message">I knew you would say yes. 💖</p>
+    <button id="noButton">No</button>
+  </div>
+
+  <!-- Heart-shaped balloons -->
+  <div class="balloon" style="top: 10%; left: 10%;"></div>
+  <div class="balloon" style="top: 20%; left: 30%;"></div>
+  <div class="balloon" style="top: 5%; left: 70%;"></div>
+  <div class="balloon" style="top: 15%; left: 90%;"></div>
+
+  <!-- Roses -->
+  <div class="rose" style="top: 5%; left: 20%;"></div>
+  <div class="rose" style="top: 25%; left: 50%;"></div>
+  <div class="rose" style="top: 10%; left: 80%;"></div>
+
+  <!-- Confetti (hidden initially) -->
+  <div id="confetti-container" style="display: none;">
+    <!-- Confetti elements will be generated here -->
+  </div>
+
+  <script>
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const message = document.getElementById('message');
+    const confettiContainer = document.getElementById('confetti-container');
+
+    yesButton.addEventListener('click', () => {
+      message.style.display = 'block';
+      noButton.style.display = 'none';
+      confettiContainer.style.display = 'block';
+      createConfetti();
+    });
+
+    noButton.addEventListener('mouseover', () => {
+      const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+    });
+
+    function createConfetti() {
+      for (let i = 0; i < 50; i++) { // Reduced number of confetti for mobile performance
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = `${Math.random() * 100}vw`;
+        confetti.style.animationDelay = `${Math.random() * 2}s`;
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        confettiContainer.appendChild(confetti);
+      }
+    }
+  </script>
+</body>
+</html>
